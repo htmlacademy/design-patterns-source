@@ -10,9 +10,11 @@ import ScrollTop from 'src/components/ui/scroll-top/scroll-top';
 import PageWrapper from 'src/components/layout/page-wrapper/page-wrapper';
 import { GlobalStyle } from './styles';
 
-
+import { PoolTime } from '../pools/pool-time'
 // Корневой компонент всего приложения
 function App() {
+
+  PoolTime.init()
 
   return (
     <>

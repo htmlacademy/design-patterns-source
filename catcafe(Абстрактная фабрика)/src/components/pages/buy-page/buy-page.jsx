@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import CageGallery from 'src/components/blocks/cafe-gallery/cafe-gallery';
 import Buy from 'src/components/blocks/buy/buy';
-import {BuilderPages} from '../../builders/pages/builder-pages'
+import Singleton from '../../singleton/singleton'
+import {textToUser} from '../../../const'
+
+const singletonObject = new Singleton()
 
 // страница покупки билетов
 function BuyPage({
@@ -10,19 +13,20 @@ function BuyPage({
   buyOptions, // опции покупки билетов
 }) {
 
-  return BuilderPages
-  .setPage('Покупка билетов')
-  .setCounterSingleton()
-  .renderForm(
-    () => {
-      return(
-        <>
-          <CageGallery slides={slides} />
-          <Buy buyOptions={buyOptions} />
-        </>
-      )
-    }
-  )
+  useEffect(() => {
+    singletonObject.incSingleton('Покупка билетов')
+  }, []);
+
+  return (
+    <>
+      {
+      singletonObject.getSingleton()["Покупка билетов"] > 3 &&
+           <h2>{textToUser}</h2>
+      }
+      <CageGallery slides={slides} />
+      <Buy buyOptions={buyOptions} />
+    </>
+  );
 }
 
 export default BuyPage;
